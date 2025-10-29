@@ -1,64 +1,41 @@
 import { useEffect, useState } from "react";
 
-interface ConfettiProps {
-  trigger: boolean;
-}
-
-interface ConfettiPiece {
-  id: number;
-  left: number;
-  delay: number;
-  color: string;
-  size: number;
-}
-
-const colors = [
-  'hsl(217, 91%, 60%)',  // primary
-  'hsl(45, 93%, 58%)',   // accent
-  'hsl(142, 76%, 45%)',  // success
-  'hsl(280, 80%, 60%)',  // purple
-  'hsl(0, 84%, 60%)',    // red
-];
-
-export const Confetti = ({ trigger }: ConfettiProps) => {
-  const [pieces, setPieces] = useState<ConfettiPiece[]>([]);
+const Confetti = () => {
+  const [pieces, setPieces] = useState<Array<{ id: number; left: number; delay: number; color: string }>>([]);
 
   useEffect(() => {
-    if (trigger) {
-      const newPieces: ConfettiPiece[] = [];
-      for (let i = 0; i < 50; i++) {
-        newPieces.push({
-          id: Date.now() + i,
-          left: Math.random() * 100,
-          delay: Math.random() * 0.5,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          size: 8 + Math.random() * 12,
-        });
-      }
-      setPieces(newPieces);
+    const colors = ['#14B8A6', '#A855F7', '#FB7185', '#FBBF24', '#34D399'];
+    const newPieces = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 0.5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+    }));
+    setPieces(newPieces);
 
-      // Clear after animation
-      setTimeout(() => setPieces([]), 3500);
-    }
-  }, [trigger]);
+    // Play success sound
+    const audio = new Audio();
+    audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBDGH0fPTgjMGHm7A7+OZUQ0NYKvl8KthGwY4kdfy';
+    audio.volume = 0.5;
+    audio.play().catch(() => {});
+  }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
       {pieces.map((piece) => (
         <div
           key={piece.id}
-          className="absolute animate-confetti-fall"
+          className="absolute w-3 h-3 animate-confetti"
           style={{
             left: `${piece.left}%`,
-            top: '-10%',
-            width: `${piece.size}px`,
-            height: `${piece.size}px`,
+            top: '-20px',
             backgroundColor: piece.color,
             animationDelay: `${piece.delay}s`,
-            borderRadius: Math.random() > 0.5 ? '50%' : '0',
           }}
         />
       ))}
     </div>
   );
 };
+
+export default Confetti;

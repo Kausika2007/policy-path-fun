@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Trophy, Sparkles } from 'lucide-react';
 import { SpinningWheel } from '@/components/SpinningWheel';
 import { DefinitionModal } from '@/components/DefinitionModal';
-import { Confetti } from '@/components/Confetti';
+import Confetti from '@/components/Confetti';
 import { soundEffects } from '@/utils/soundEffects';
 
 interface Term {
@@ -158,7 +158,7 @@ const SpinWheel = () => {
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-[hsl(45,93%,58%)]/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
       </div>
 
-      <Confetti trigger={showConfetti} />
+      {showConfetti && <Confetti />}
 
       <div className="container mx-auto px-4 py-8 relative z-10">
         <Link to="/games">
