@@ -7,6 +7,9 @@ import { GameProvider } from "./contexts/GameContext";
 import Home from "./pages/Home";
 import Modules from "./pages/Modules";
 import ModuleQuiz from "./pages/ModuleQuiz";
+import ModuleTeaching from "./pages/ModuleTeaching";
+import ModuleMCQ from "./pages/ModuleMCQ";
+import ModuleSequentialQuiz from "./pages/ModuleSequentialQuiz";
 import Badges from "./pages/Badges";
 import Leaderboard from "./pages/Leaderboard";
 import Games from "./pages/Games";
@@ -28,6 +31,9 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/modules" element={<Modules />} />
             <Route path="/module/:id" element={<ModuleQuiz />} />
+            <Route path="/module/:id/teaching" element={<ModuleTeaching />} />
+            <Route path="/module/:id/mcq" element={<ModuleMCQ />} />
+            <Route path="/module/:id/quiz" element={<ModuleSequentialQuiz />} />
             <Route path="/badges" element={<Badges />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/games" element={<Games />} />

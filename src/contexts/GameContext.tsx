@@ -8,6 +8,13 @@ export interface Badge {
   earned: boolean;
 }
 
+export interface Submodule {
+  id: number;
+  type: 'teaching' | 'mcq' | 'quiz';
+  title: string;
+  completed: boolean;
+}
+
 export interface Module {
   id: number;
   title: string;
@@ -16,6 +23,7 @@ export interface Module {
   locked: boolean;
   completed: boolean;
   points: number;
+  submodules: Submodule[];
 }
 
 interface UserProgress {
@@ -31,6 +39,7 @@ interface GameContextType {
   earnBadge: (badge: Badge) => void;
   modules: Module[];
   unlockModule: (moduleId: number) => void;
+  completeSubmodule: (moduleId: number, submoduleId: number) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -45,12 +54,23 @@ const initialBadges: Badge[] = [
   { id: 'roadmap-complete', name: 'Journey Complete', icon: '🏆', description: 'Complete the Insurance Roadmap', earned: false },
 ];
 
+const createSubmodules = (): Submodule[] => [
+  { id: 1, type: 'teaching', title: 'Learn', completed: false },
+  { id: 2, type: 'mcq', title: 'Practice', completed: false },
+  { id: 3, type: 'quiz', title: 'Quiz', completed: false },
+];
+
 const initialModules: Module[] = [
-  { id: 1, title: 'Introduction to Insurance', description: 'Learn the basics', icon: '📚', locked: false, completed: false, points: 100 },
-  { id: 2, title: 'Life Insurance', description: 'Protecting your loved ones', icon: '❤️', locked: true, completed: false, points: 150 },
-  { id: 3, title: 'Health Insurance', description: 'Medical coverage explained', icon: '🏥', locked: true, completed: false, points: 150 },
-  { id: 4, title: 'Vehicle Insurance', description: 'Auto protection guide', icon: '🚗', locked: true, completed: false, points: 150 },
-  { id: 5, title: 'Travel Insurance', description: 'Safe journeys ahead', icon: '✈️', locked: true, completed: false, points: 150 },
+  { id: 1, title: 'Basics of Insurance', description: 'Foundation of insurance concepts', icon: '🛡️', locked: false, completed: false, points: 100, submodules: createSubmodules() },
+  { id: 2, title: 'Life Insurance', description: 'Protecting your loved ones\' future', icon: '❤️', locked: true, completed: false, points: 150, submodules: createSubmodules() },
+  { id: 3, title: 'Health Insurance', description: 'Understanding medical coverage', icon: '🏥', locked: true, completed: false, points: 150, submodules: createSubmodules() },
+  { id: 4, title: 'Vehicle Insurance', description: 'Auto protection essentials', icon: '🚗', locked: true, completed: false, points: 150, submodules: createSubmodules() },
+  { id: 5, title: 'Educational Insurance', description: 'Securing educational future', icon: '🎓', locked: true, completed: false, points: 150, submodules: createSubmodules() },
+  { id: 6, title: 'Travel Insurance', description: 'Protection for your journeys', icon: '✈️', locked: true, completed: false, points: 150, submodules: createSubmodules() },
+  { id: 7, title: 'Fraud Awareness', description: 'Protecting yourself from scams', icon: '🔒', locked: true, completed: false, points: 200, submodules: createSubmodules() },
+  { id: 8, title: 'Policy Types', description: 'Understanding different policies', icon: '📋', locked: true, completed: false, points: 175, submodules: createSubmodules() },
+  { id: 9, title: 'Government Schemes', description: 'Latest government insurance', icon: '🏛️', locked: true, completed: false, points: 175, submodules: createSubmodules() },
+  { id: 10, title: 'Insurance Process', description: 'Complete insurance journey', icon: '🔄', locked: true, completed: false, points: 200, submodules: createSubmodules() },
 ];
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -106,8 +126,35 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }));
   };
 
+  const completeSubmodule = (moduleId: number, submoduleId: number) => {
+    setModules(prev =>
+      prev.map(m => {
+        if (m.id === moduleId) {
+          const updatedSubmodules = m.submodules.map(s =>
+            s.id === submoduleId ? { ...s, completed: true } : s
+          );
+          const allCompleted = updatedSubmodules.every(s => s.completed);
+          return { ...m, submodules: updatedSubmodules, completed: allCompleted };
+        }
+        return m;
+      })
+    );
+
+    // Check if module is complete and unlock next modules
+    const module = modules.find(m => m.id === moduleId);
+    if (module) {
+      const allSubmodulesComplete = module.submodules.filter(s => s.id !== submoduleId).every(s => s.completed);
+      if (allSubmodulesComplete && moduleId === 1) {
+        // Unlock all other modules after completing Module 1
+        for (let i = 2; i <= 10; i++) {
+          unlockModule(i);
+        }
+      }
+    }
+  };
+
   return (
-    <GameContext.Provider value={{ progress, updateProgress, earnBadge, modules, unlockModule }}>
+    <GameContext.Provider value={{ progress, updateProgress, earnBadge, modules, unlockModule, completeSubmodule }}>
       {children}
     </GameContext.Provider>
   );
