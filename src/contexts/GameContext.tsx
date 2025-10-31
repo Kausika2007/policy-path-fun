@@ -86,7 +86,19 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [modules, setModules] = useState<Module[]>(() => {
     const saved = localStorage.getItem('insurelearn-modules');
-    return saved ? JSON.parse(saved) : initialModules;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Validate that all modules have submodules array
+        const isValid = parsed.every((m: any) => Array.isArray(m.submodules));
+        if (isValid) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Error parsing saved modules:', e);
+      }
+    }
+    return initialModules;
   });
 
   useEffect(() => {
