@@ -16,6 +16,8 @@ import Games from "./pages/Games";
 import SpinWheel from "./pages/SpinWheel";
 import Flashcards from "./pages/Flashcards";
 import Roadmap from "./pages/Roadmap";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +42,8 @@ const App = () => (
             <Route path="/spin-wheel" element={<SpinWheel />} />
             <Route path="/flashcards" element={<Flashcards />} />
             <Route path="/roadmap" element={<Roadmap />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

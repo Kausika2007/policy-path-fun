@@ -29,7 +29,7 @@ const GameBoard = ({ playerPosition }: GameBoardProps) => {
   }, []);
 
   return (
-    <Card className="relative w-full max-w-[800px] aspect-square overflow-hidden border-4 border-primary shadow-2xl">
+    <Card className="relative w-full max-w-[1000px] aspect-square overflow-hidden border-4 border-primary shadow-2xl">
       <img 
         src={gameBoardImg} 
         alt="Snakes and Ladders Insurance Game Board with educational snakes and ladders" 
