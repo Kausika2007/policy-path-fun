@@ -41,7 +41,7 @@ export const useGameSounds = () => {
     // Create a simple cheerful melody using Web Audio API
     const ctx = audioContextRef.current;
     const gainNode = ctx.createGain();
-    gainNode.gain.value = 0.1; // Low volume for background
+    gainNode.gain.value = 0.3; // Louder volume for background music
     gainNode.connect(ctx.destination);
 
     const playNote = (frequency: number, startTime: number, duration: number) => {
@@ -51,7 +51,7 @@ export const useGameSounds = () => {
       
       const noteGain = ctx.createGain();
       noteGain.gain.setValueAtTime(0, startTime);
-      noteGain.gain.linearRampToValueAtTime(0.3, startTime + 0.01);
+      noteGain.gain.linearRampToValueAtTime(0.5, startTime + 0.01);
       noteGain.gain.linearRampToValueAtTime(0, startTime + duration);
       
       osc.connect(noteGain);

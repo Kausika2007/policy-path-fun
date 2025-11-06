@@ -135,49 +135,69 @@ const Roadmap = () => {
         </div>
 
         {/* Main Game Area */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left Column - Stats & Message */}
-          <div className="space-y-6">
-            <PlayerStats position={playerPosition} lastDice={lastDice} />
-            <InsuranceMessage message={message} type={messageType} />
-          </div>
-
-          {/* Center Column - Game Board */}
-          <div className="lg:col-span-1 flex justify-center items-start">
-            <GameBoard playerPosition={playerPosition} />
-          </div>
-
-          {/* Right Column - Dice & Controls */}
-          <div className="flex flex-col items-center justify-start space-y-6">
-            <DiceRoller
-              onRoll={handleRoll}
-              disabled={gameWon}
-              onRollStart={playDiceRoll}
-            />
+        {gameWon ? (
+          /* Victory Screen - Large centered display */
+          <div className="flex flex-col items-center justify-center min-h-[600px] space-y-8 animate-fade-in">
+            <div className="text-center space-y-6 bg-white/20 backdrop-blur-lg rounded-3xl p-12 border-4 border-white/40 shadow-2xl max-w-3xl">
+              <div className="text-9xl animate-bounce">🏆</div>
+              <h2 className="text-6xl font-bold text-white drop-shadow-lg">
+                POSITION 100!
+              </h2>
+              <h3 className="text-4xl font-bold text-yellow-300 drop-shadow-lg">
+                🎉 YOU WIN! 🎉
+              </h3>
+              <p className="text-2xl text-white leading-relaxed max-w-2xl mx-auto">
+                Congratulations! You've completed your Insurance Awareness Journey! 
+                You now understand how insurance protects against life's uncertainties.
+              </p>
+              <div className="text-xl text-yellow-200 font-semibold">
+                Remember: Being insured means being prepared for anything!
+              </div>
+            </div>
             
-            {gameWon && (
-              <Button
-                onClick={resetGame}
-                variant="outline"
-                size="lg"
-                className="bg-white/20 backdrop-blur-sm border-white/40 text-white hover:bg-white/30 hover:text-white"
-              >
-                <RotateCcw className="mr-2 h-5 w-5" />
-                Play Again
-              </Button>
-            )}
-            
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-white text-sm">
-              <h3 className="font-bold mb-2">How to Play:</h3>
-              <ul className="space-y-1 list-disc list-inside">
-                <li>Roll the dice to move forward</li>
-                <li>🪜 Ladders = Good insurance practices</li>
-                <li>🐍 Snakes = Insurance risks</li>
-                <li>Reach 100 to win!</li>
-              </ul>
+            <Button
+              onClick={resetGame}
+              size="lg"
+              className="text-2xl px-12 py-8 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-2xl hover:shadow-3xl transition-all animate-pulse"
+            >
+              <RotateCcw className="mr-3 h-8 w-8" />
+              Play Again
+            </Button>
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left Column - Stats & Message */}
+            <div className="space-y-6">
+              <PlayerStats position={playerPosition} lastDice={lastDice} />
+              <InsuranceMessage message={message} type={messageType} />
+            </div>
+
+            {/* Center Column - Game Board */}
+            <div className="lg:col-span-1 flex justify-center items-start">
+              <GameBoard playerPosition={playerPosition} />
+            </div>
+
+            {/* Right Column - Dice & Controls */}
+            <div className="flex flex-col items-center justify-start space-y-6">
+              <DiceRoller
+                onRoll={handleRoll}
+                disabled={gameWon}
+                onRollStart={playDiceRoll}
+              />
+              
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 text-white text-sm shadow-lg border border-white/30">
+                <h3 className="font-bold mb-3 text-lg">How to Play:</h3>
+                <ul className="space-y-2 list-disc list-inside">
+                  <li>Roll the dice to move forward</li>
+                  <li>🪜 Ladders = Insurance benefits & protection</li>
+                  <li>🐍 Snakes = Risks without insurance</li>
+                  <li>Learn about insurance as you play!</li>
+                  <li>🎯 Reach position 100 to win!</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

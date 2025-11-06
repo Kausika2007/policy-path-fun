@@ -45,8 +45,8 @@ const DiceRoller = ({ onRoll, disabled, onRollStart }: DiceRollerProps) => {
       <div className={`transition-transform ${isRolling ? 'animate-spin' : ''}`}>
         <img 
           src={diceImages[currentDice]} 
-          alt={`Dice showing ${currentDice + 1}`}
-          className="w-24 h-24 drop-shadow-2xl"
+          alt={`Insurance learning dice showing ${currentDice + 1}`}
+          className="w-32 h-32 drop-shadow-2xl"
         />
       </div>
       <Button 
