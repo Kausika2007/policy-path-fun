@@ -13,7 +13,7 @@ const Home = () => {
         <nav className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="text-4xl">🛡️</div>
-            <h1 className="text-2xl font-bold text-white">InsureLearn</h1>
+            <h1 className="text-2xl font-bold text-white">SAFESURE</h1>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -38,7 +38,7 @@ const Home = () => {
           </div>
           
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Master Insurance
+            Learn Insurance
             <br />
             <span className="text-secondary">Through Gaming</span>
           </h2>
@@ -77,7 +77,7 @@ const Home = () => {
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all hover:scale-105 hover:shadow-glow">
                 <div className="text-5xl mb-4">🎡</div>
                 <h3 className="text-xl font-bold text-white mb-2">Interactive Games</h3>
-                <p className="text-white/80">Spinning wheel, flashcards, and snake & ladder</p>
+                <p className="text-white/80">Learning through mindblowing games</p>
               </div>
             </Link>
 
