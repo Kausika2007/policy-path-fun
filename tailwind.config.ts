@@ -52,17 +52,28 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        edge: {
+          green: "hsl(var(--edge-green))",
+          "green-light": "hsl(var(--edge-green-light))",
+          blue: "hsl(var(--edge-blue))",
+          "blue-light": "hsl(var(--edge-blue-light))",
+          earth: "hsl(var(--edge-earth))",
+          "earth-light": "hsl(var(--edge-earth-light))",
+        },
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-success': 'var(--gradient-success)',
         'gradient-reward': 'var(--gradient-reward)',
         'gradient-hero': 'var(--gradient-hero)',
+        'gradient-edge': 'var(--gradient-edge)',
+        'gradient-earth': 'var(--gradient-earth)',
       },
       boxShadow: {
         'card': 'var(--shadow-card)',
         'glow': 'var(--shadow-glow)',
         'success': 'var(--shadow-success)',
+        'edge': 'var(--shadow-edge)',
       },
       borderRadius: {
         lg: "var(--radius)",
